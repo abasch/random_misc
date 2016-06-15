@@ -1,32 +1,31 @@
 // Implementation of quick union find
+var uf = {
 
-function id(n) {
-  var arr = [];
-  for (i = 0; i < n; i++) arr[i] = i;
-  return arr;
+  id: [],
+
+  init: function(n) {
+    for (i = 0; i <= n; i++) this.id[i] = i;
+  },
+
+  connected: function(p, q) {
+    return this.id[p] === this.id[q];
+  },
+
+  union: function(p, q) {
+    var pid = this.id[p];
+    var qid = this.id[q];
+
+    for (i = 0; i < this.id.length; i++)
+      if (this.id[i] == pid)
+        this.id[i] = qid;
+  }
 }
 
-var id = id(100);
+uf.init(15);
+uf.union(1,0);
+uf.union(1,5);
+uf.union(15,0);
 
-function connected(p, q) {
-  return id[p] === id[q];
-}
-
-function union(p, q) {
-  var pid = id[p];
-  var qid = id[q];
-
-  for (i = 0; i < id.length; i++)
-    if (id[i] == pid)
-      id[i] = qid;
-}
-
-union(5, 1);
-union(7, 0);
-union(2, 0);
-union(7, 6);
-union(1, 0);
-union(5, 100);
-
-alert(connected(2, 100));
+alert(uf.connected(15,1));
+alert(uf.id);
 
